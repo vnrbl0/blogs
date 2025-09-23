@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - VNR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <a href="index.html">
+                        <i class="fas fa-code"></i>
+                        <span>VNR</span>
+                    </a>
+                </div>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search posts..." id="searchInput">
+                    <i class="fas fa-search search-icon"></i>
+                    <div class="search-dropdown" id="searchDropdown"></div>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="blogs.html" class="nav-link">Blogs</a></li>
+                    <li><a href="most-read.html" class="nav-link">Most Read</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="login.html" class="btn btn-primary sign-in-btn">
+                        <i class="fas fa-user"></i>
+                        Sign In
+                    </a>
+                </div>
+                <div class="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Get In Touch</h1>
+                <p>Let's discuss security, share knowledge, or collaborate on projects</p>
+            </div>
+        </section>
+
+        <section class="contact-content">
+            <div class="container">
+                <div class="contact-layout">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3>Email Me</h3>
+                            <p>Drop me a line anytime</p>
+                            <a href="mailto:contact@vnr.dev" class="contact-link">contact@vnr.dev</a>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <h3>Follow Me</h3>
+                            <p>Latest updates and insights</p>
+                            <a href="#" class="contact-link">@VNR</a>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <h3>Connect</h3>
+                            <p>Professional networking</p>
+                            <a href="#" class="contact-link">LinkedIn Profile</a>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3>Code</h3>
+                            <p>Check out my projects</p>
+                            <a href="#" class="contact-link">GitHub Profile</a>
+                        </div>
+
+                        <div class="availability">
+                            <h3><i class="fas fa-clock"></i> Availability</h3>
+                            <ul>
+                                <li><strong>Response Time:</strong> Within 24 hours</li>
+                                <li><strong>Consulting:</strong> Available for security audits</li>
+                                <li><strong>Speaking:</strong> Conference talks and workshops</li>
+                                <li><strong>Collaboration:</strong> Open to interesting projects</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <h2>Send a Message</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a topic</option>
+                                    <option value="security-consultation">Security Consultation</option>
+                                    <option value="bug-bounty">Bug Bounty Collaboration</option>
+                                    <option value="speaking">Speaking Opportunity</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="feedback">Blog Feedback</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="6" required placeholder="Tell me about your project, question, or how I can help..."></textarea>
+                            </div>
+
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="newsletter" name="newsletter">
+                                    <span class="checkmark"></span>
+                                    Subscribe to newsletter for latest security insights
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+
+                        <div class="form-status" id="formStatus"></div>
+                    </div>
+                </div>
+
+                <div class="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h3><i class="fas fa-question-circle"></i> Do you offer security consulting?</h3>
+                            <p>Yes! I provide security audits, penetration testing, and secure code reviews for applications and infrastructure. Contact me to discuss your specific needs.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3><i class="fas fa-question-circle"></i> Can you speak at my event?</h3>
+                            <p>I'm always interested in sharing knowledge with the community. I speak on topics like web security, bug hunting methodologies, and secure development practices.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3><i class="fas fa-question-circle"></i> Do you collaborate on bug bounty programs?</h3>
+                            <p>Absolutely! I enjoy collaborating with other security researchers. If you have an interesting target or want to team up, let's discuss it.</p>
+                        </div>
+
+                        <div class="faq-item">
+                            <h3><i class="fas fa-question-circle"></i> How can I contribute to your blog?</h3>
+                            <p>I welcome guest posts from fellow security researchers and developers. If you have valuable insights to share, reach out with your topic ideas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expertise-section">
+                    <h2>Areas of Expertise</h2>
+                    <div class="expertise-grid">
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Web Application Security</h3>
+                            <p>OWASP Top 10, authentication, authorization, and secure coding practices</p>
+                        </div>
+
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <h3>Bug Bounty Hunting</h3>
+                            <p>Manual testing, automated scanning, and vulnerability research methodologies</p>
+                        </div>
+
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Secure Development</h3>
+                            <p>DevSecOps, secure SDLC implementation, and security architecture design</p>
+                        </div>
+
+                        <div class="expertise-item">
+                            <div class="expertise-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>Penetration Testing</h3>
+                            <p>Network, web app, and API security assessments following industry standards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>CodeHunter</h3>
+                    <p>Crafting secure code and hunting bugs</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                        <li><a href="most-read.html">Most Read</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 VNR. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
