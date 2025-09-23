@@ -69,6 +69,10 @@ ul.header_menu-list li a:hover {
     margin-top: 3px;
 }
 
+.my-logo:hover{
+    cursor: pointer;
+}
+
 .box>p {
     color: white;
     font-size: 48px;
@@ -100,7 +104,7 @@ ul.header_menu-list li a:hover {
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    filter: brightness(-7);
+    opacity: calc(1);
 }
 
 .content-box {
@@ -113,15 +117,15 @@ ul.header_menu-list li a:hover {
 
 .content-box>h1 {
     color: white;
-    font-weight: 1px;
-    font-size: 20px;
+    font-weight: 10px;
+    font-size: 16px;
     padding: 14px;
     background-color: rgba(250, 179, 0, 0.521);
     display: flex;
     margin: 5px;
     align-items: center;
     justify-content: center;
-    width: 300px;
+    width: 150px;
     border-radius: 25px;
     transition: 0.5s ease;
 }
@@ -131,6 +135,7 @@ ul.header_menu-list li a:hover {
     background-color: white;
     color: rgba(177, 133, 23, 0.938);;
     box-shadow: 0 0 20px rgba(250, 179, 0, 0.521);
+    cursor: pointer;
 }
 
 .content-box>h1:hover::after {
