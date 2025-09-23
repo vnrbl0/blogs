@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 1.4em;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 10px;
+}
+
+.nav-logo {
+    flex: 1;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.header_menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+ul.header_menu-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul.header_menu-list {
+    transition: background-position-x 0.9s linear;
+}
+
+ul.header_menu-list li a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    line-height: 1.4em;
+    color: white;
+    font-weight: 300;
+    padding: 8px 15px;
+    border-radius: 50px;
+    margin-left: 15px;
+    transition: all 0.3s;
+}
+
+ul.header_menu-list li a:hover {
+    background-color: rgba(250, 179, 0, 0.521);
+}
+
+.my-logo {
+    width: 100px;
+    height: auto;
+    margin-top: 3px;
+}
+
+.box>p {
+    color: white;
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.github-svg {
+    width: 23px;
+    height: auto;
+    cursor: pointer;
+    margin-top: 12px;
+    margin-left: 10px;
+}
+
+.github-svg:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+    background-color: none;
+    color: none;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(-7);
+}
+
+.content-box {
+    width: 500px;
+    height: 500px;
+    border: 2px solid red;
+    margin-left: 90px;
+    padding: 20px;
+}
+
+.content-box>h1 {
+    color: white;
+    font-weight: 1px;
+    font-size: 20px;
+    padding: 14px;
+    background-color: rgba(250, 179, 0, 0.521);
+    display: flex;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    border-radius: 25px;
+    transition: 0.5s ease;
+}
+
+.content-box>h1:hover {
+    transform: scale(1.05);
+    background-color: white;
+    color: rgba(177, 133, 23, 0.938);;
+    box-shadow: 0 0 20px rgba(250, 179, 0, 0.521);
+}
+
+.content-box>h1:hover::after {
+    opacity: 1;
+    transform: rotate(-45deg) translateY(100%);
+}
