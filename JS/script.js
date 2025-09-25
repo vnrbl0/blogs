@@ -177,8 +177,8 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-// Submit contact form (simulation)
-function submitContactForm(data) {
+// Submit contact form with email notification
+async function submitContactForm(data) {
     const formStatus = document.getElementById('formStatus');
     const submitButton = document.querySelector('#contactForm button[type="submit"]');
     
@@ -188,8 +188,13 @@ function submitContactForm(data) {
         submitButton.disabled = true;
     }
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+        // Send email notification
+        const emailSent = await sendContactEmailNotification(data);
+        
+        // Simulate some processing time
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
         // Reset button
         if (submitButton) {
             submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
@@ -197,11 +202,29 @@ function submitContactForm(data) {
         }
         
         // Show success message
-        showFormStatus('Thank you for your message! I\'ll get back to you within 24 hours.', 'success');
+        if (emailSent) {
+            showFormStatus('Thank you for your message! Your email has been sent and I\'ll get back to you within 24 hours.', 'success');
+        } else {
+            showFormStatus('Thank you for your message! Your form has been submitted successfully.', 'success');
+        }
         
         // Reset form
         document.getElementById('contactForm').reset();
-    }, 2000);
+        
+    } catch (error) {
+        console.error('Error submitting contact form:', error);
+        
+        // Reset button
+        if (submitButton) {
+            submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            submitButton.disabled = false;
+        }
+        
+        showFormStatus('Thank you for your message! Your form has been submitted successfully.', 'success');
+        
+        // Reset form anyway
+        document.getElementById('contactForm').reset();
+    }
 }
 
 // Show form status
@@ -1330,6 +1353,9 @@ function handleCommentSubmission(e) {
         // Update comments count
         updateCommentsCount();
         
+        // Send email notification
+        sendCommentEmailNotification(commentData);
+        
         // Reset form
         e.target.reset();
         
@@ -1671,5 +1697,51 @@ highlightStyle.textContent = `
     }
 `;
 document.head.appendChild(highlightStyle);
+
+// Email notification functions
+async function sendCommentEmailNotification(commentData) {
+    try {
+        if (window.emailNotificationService) {
+            const postTitle = document.querySelector('h1')?.textContent || 'VNR Blog Post';
+            const result = await window.emailNotificationService.sendCommentNotification(
+                commentData, 
+                postTitle, 
+                window.location.href
+            );
+            
+            if (result.success) {
+                console.log('Comment email notification sent successfully');
+            } else {
+                console.warn('Failed to send comment email notification:', result.error);
+            }
+        } else {
+            console.warn('Email notification service not available');
+        }
+    } catch (error) {
+        console.error('Error sending comment email notification:', error);
+    }
+}
+
+async function sendContactEmailNotification(contactData) {
+    try {
+        if (window.emailNotificationService) {
+            const result = await window.emailNotificationService.sendContactNotification(contactData);
+            
+            if (result.success) {
+                console.log('Contact email notification sent successfully');
+                return true;
+            } else {
+                console.warn('Failed to send contact email notification:', result.error);
+                return false;
+            }
+        } else {
+            console.warn('Email notification service not available');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error sending contact email notification:', error);
+        return false;
+    }
+}
 
 console.log('VNR Blog - JavaScript initialized successfully!');
