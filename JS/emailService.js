@@ -3,11 +3,11 @@
 
 class EmailNotificationService {
     constructor() {
-        // EmailJS configuration - You'll need to set these up at https://www.emailjs.com/
-        this.SERVICE_ID = 'service_vnr_blog';  // Replace with your EmailJS service ID
-        this.CONTACT_TEMPLATE_ID = 'template_contact';  // Replace with your contact template ID
-        this.COMMENT_TEMPLATE_ID = 'template_comment';  // Replace with your comment template ID
-        this.PUBLIC_KEY = 'dc0SSGDuUj1qKIP-6';  // Replace with your EmailJS public key
+        // EmailJS configuration - Your actual EmailJS settings
+        this.SERVICE_ID = 'service_vnr_blog';
+        this.CONTACT_TEMPLATE_ID = 'template_contact';
+        this.COMMENT_TEMPLATE_ID = 'template_comment';
+        this.PUBLIC_KEY = 'dc0SSGDuUj1qKIP-6';
         
         // Your email address
         this.ADMIN_EMAIL = 'grindwithmt@gmail.com';
@@ -20,14 +20,16 @@ class EmailNotificationService {
         try {
             if (typeof emailjs !== 'undefined') {
                 emailjs.init(this.PUBLIC_KEY);
-                console.log('EmailJS initialized successfully');
+                console.log('🚀 EmailJS initialized successfully with Service ID:', this.SERVICE_ID);
+                console.log('📧 Admin email:', this.ADMIN_EMAIL);
+                console.log('📝 Templates configured - Contact:', this.CONTACT_TEMPLATE_ID, ', Comment:', this.COMMENT_TEMPLATE_ID);
             } else {
-                console.warn('EmailJS not loaded yet, will retry...');
+                console.warn('EmailJS SDK not loaded yet, will retry in 1 second...');
                 // Retry after a short delay
                 setTimeout(() => this.initializeEmailJS(), 1000);
             }
         } catch (error) {
-            console.error('Failed to initialize EmailJS:', error);
+            console.error('❌ Failed to initialize EmailJS:', error);
         }
     }
     
@@ -52,13 +54,21 @@ class EmailNotificationService {
                 notification_type: 'New Comment'
             };
             
+            console.log('📨 Sending comment notification email...', {
+                service: this.SERVICE_ID,
+                template: this.COMMENT_TEMPLATE_ID,
+                commenter: commentData.name,
+                post: postTitle
+            });
+            
             const response = await emailjs.send(
                 this.SERVICE_ID,
                 this.COMMENT_TEMPLATE_ID,
                 templateParams
             );
             
-            console.log('Comment notification sent successfully:', response);
+            console.log('✅ Comment notification sent successfully to', this.ADMIN_EMAIL);
+            console.log('Email details:', { commenter: commentData.name, post: postTitle, status: response.status });
             return { success: true, response };
             
         } catch (error) {
@@ -86,13 +96,21 @@ class EmailNotificationService {
                 newsletter_subscribe: contactData.newsletter ? 'Yes' : 'No'
             };
             
+            console.log('📨 Sending contact form notification email...', {
+                service: this.SERVICE_ID,
+                template: this.CONTACT_TEMPLATE_ID,
+                sender: contactData.name,
+                subject: contactData.subject
+            });
+            
             const response = await emailjs.send(
                 this.SERVICE_ID,
                 this.CONTACT_TEMPLATE_ID,
                 templateParams
             );
             
-            console.log('Contact notification sent successfully:', response);
+            console.log('✅ Contact notification sent successfully to', this.ADMIN_EMAIL);
+            console.log('Email details:', { sender: contactData.name, subject: contactData.subject, status: response.status });
             return { success: true, response };
             
         } catch (error) {
@@ -106,12 +124,17 @@ class EmailNotificationService {
      */
     async testEmailService() {
         try {
+            console.log('🧪 Testing email service...');
+            
             const testParams = {
                 to_email: this.ADMIN_EMAIL,
-                from_name: 'VNR Blog System',
-                subject: 'Email Service Test',
-                message: 'This is a test email to verify the email service is working correctly.',
-                test_date: new Date().toLocaleString()
+                sender_name: 'VNR Blog Test System',
+                sender_email: 'test@vnrblog.com',
+                message_subject: 'Email Service Test',
+                message_content: 'This is a test email to verify your EmailJS configuration is working correctly. If you receive this, your email notifications are set up properly!',
+                submission_date: new Date().toLocaleString(),
+                notification_type: 'System Test',
+                newsletter_subscribe: 'N/A'
             };
             
             const response = await emailjs.send(
@@ -120,11 +143,12 @@ class EmailNotificationService {
                 testParams
             );
             
-            console.log('Test email sent successfully:', response);
+            console.log('✅ Test email sent successfully to', this.ADMIN_EMAIL);
+            console.log('Response:', response);
             return { success: true, response };
             
         } catch (error) {
-            console.error('Test email failed:', error);
+            console.error('❌ Test email failed:', error);
             return { success: false, error: error.message };
         }
     }

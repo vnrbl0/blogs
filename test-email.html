@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Service Test - VNR Blog</title>
+    <link rel="stylesheet" href="Style/styles.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
+        }
+        
+        .test-container {
+            background: var(--secondary-black);
+            border: 1px solid var(--tertiary-black);
+            border-radius: 1rem;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            margin: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .test-header h1 {
+            color: var(--primary-gold);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: var(--primary-black);
+            border: none;
+            border-radius: 0.5rem;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+        
+        .test-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .test-results {
+            background: var(--tertiary-black);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .status {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        .status.success {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            color: #4caf50;
+        }
+        
+        .status.error {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .back-link a {
+            color: var(--primary-gold);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1>🧪 Email Service Test</h1>
+            <p>Test your EmailJS configuration and email notifications</p>
+        </div>
+        
+        <div class="test-buttons">
+            <button class="test-btn" id="testEmailBtn">
+                <i class="fas fa-paper-plane"></i>
+                Send Test Email
+            </button>
+            
+            <button class="test-btn" id="testCommentBtn">
+                <i class="fas fa-comment"></i>
+                Test Comment Notification
+            </button>
+            
+            <button class="test-btn" id="testContactBtn">
+                <i class="fas fa-envelope"></i>
+                Test Contact Notification
+            </button>
+            
+            <button class="test-btn" id="checkStatusBtn">
+                <i class="fas fa-info-circle"></i>
+                Check Service Status
+            </button>
+        </div>
+        
+        <div class="status" id="statusMessage"></div>
+        
+        <div class="test-results" id="testResults">
+            <p>Click any button above to test the email service...</p>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html">← Back to Blog</a>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Email Service -->
+    <script src="JS/emailService.js"></script>
+    
+    <script>
+        const testResults = document.getElementById('testResults');
+        const statusMessage = document.getElementById('statusMessage');
+        
+        // Utility function to log to results
+        function logResult(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+            testResults.innerHTML += `<div>[${timestamp}] ${icon} ${message}</div>`;
+            testResults.scrollTop = testResults.scrollHeight;
+        }
+        
+        // Show status message
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status ${type}`;
+            statusMessage.style.display = 'block';
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Test basic email service
+        document.getElementById('testEmailBtn').addEventListener('click', async function() {
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            
+            try {
+                logResult('Testing basic email service...');
+                const result = await window.emailNotificationService.testEmailService();
+                
+                if (result.success) {
+                    logResult('Test email sent successfully! Check your inbox at grindwithmt@gmail.com', 'success');
+                    showStatus('Test email sent! Check your Gmail inbox.', 'success');
+                } else {
+                    logResult(`Test email failed: ${result.error}`, 'error');
+                    showStatus(`Test failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                logResult(`Test error: ${error.message}`, 'error');
+                showStatus(`Test error: ${error.message}`, 'error');
+            }
+            
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-paper-plane"></i> Send Test Email';
+        });
+        
+        // Test comment notification
+        document.getElementById('testCommentBtn').addEventListener('click', async function() {
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testing...';
+            
+            try {
+                logResult('Testing comment notification...');
+                const testComment = {
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    message: 'This is a test comment to verify the email notification system is working correctly!',
+                    timestamp: new Date().toISOString()
+                };
+                
+                const result = await window.emailNotificationService.sendCommentNotification(
+                    testComment, 
+                    'Email Test Page', 
+                    window.location.href
+                );
+                
+                if (result.success) {
+                    logResult('Comment notification sent successfully!', 'success');
+                    showStatus('Comment notification sent! Check your Gmail inbox.', 'success');
+                } else {
+                    logResult(`Comment notification failed: ${result.error}`, 'error');
+                    showStatus(`Comment test failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                logResult(`Comment test error: ${error.message}`, 'error');
+                showStatus(`Comment test error: ${error.message}`, 'error');
+            }
+            
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-comment"></i> Test Comment Notification';
+        });
+        
+        // Test contact notification
+        document.getElementById('testContactBtn').addEventListener('click', async function() {
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testing...';
+            
+            try {
+                logResult('Testing contact notification...');
+                const testContact = {
+                    name: 'Test Contact',
+                    email: 'test@example.com',
+                    subject: 'Email Service Test',
+                    message: 'This is a test contact form submission to verify the email notification system is working correctly!',
+                    newsletter: true
+                };
+                
+                const result = await window.emailNotificationService.sendContactNotification(testContact);
+                
+                if (result.success) {
+                    logResult('Contact notification sent successfully!', 'success');
+                    showStatus('Contact notification sent! Check your Gmail inbox.', 'success');
+                } else {
+                    logResult(`Contact notification failed: ${result.error}`, 'error');
+                    showStatus(`Contact test failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                logResult(`Contact test error: ${error.message}`, 'error');
+                showStatus(`Contact test error: ${error.message}`, 'error');
+            }
+            
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-envelope"></i> Test Contact Notification';
+        });
+        
+        // Check service status
+        document.getElementById('checkStatusBtn').addEventListener('click', function() {
+            logResult('Checking email service status...');
+            
+            if (window.emailNotificationService) {
+                const status = window.emailNotificationService.getServiceStatus();
+                logResult(`Service Status: ${JSON.stringify(status, null, 2)}`);
+                
+                if (status.initialized) {
+                    logResult('✅ EmailJS is properly initialized', 'success');
+                    logResult(`Service ID: ${status.serviceId}`);
+                    logResult(`Admin Email: ${status.adminEmail}`);
+                    logResult(`Templates: ${JSON.stringify(status.templatesConfigured)}`);
+                } else {
+                    logResult('❌ EmailJS not properly initialized', 'error');
+                }
+            } else {
+                logResult('❌ Email notification service not available', 'error');
+            }
+        });
+        
+        // Auto-check status on load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                logResult('Email test page loaded successfully');
+                logResult('Your configuration:');
+                logResult('- Service ID: service_vnr_blog');
+                logResult('- Admin Email: grindwithmt@gmail.com'); 
+                logResult('- Templates: template_contact, template_comment');
+                logResult('Ready to test! Click any button above.');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
