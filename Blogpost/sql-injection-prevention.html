@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Art of SQL Injection: Detection and Prevention - VNR</title>
-    <link rel="stylesheet" href="/Style/styles.css">
+    <link rel="stylesheet" href="../Style/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -13,16 +13,16 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="nav-brand">
-                    <a href="/index.html">
+                    <a href="../index.html">
                         <i class="fas fa-code"></i>
                         <span>VNR</span>
                     </a>
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="/index.html" class="nav-link">Home</a></li>
-                    <li><a href="/Menu/blogs.html" class="nav-link active">Blogs</a></li>
-                    <li><a href="/Menu/most-read.html" class="nav-link">Most Read</a></li>
-                    <li><a href="/Menu/contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../Menu/blogs.html" class="nav-link active">Blogs</a></li>
+                    <li><a href="../Menu/most-read.html" class="nav-link">Most Read</a></li>
+                    <li><a href="../Menu/contact.html" class="nav-link">Contact</a></li>
                 </ul>
                 <div class="nav-actions">
                     <div class="search-container">
@@ -30,7 +30,7 @@
                         <i class="fas fa-search search-icon"></i>
                         <div class="search-dropdown" id="searchDropdown"></div>
                     </div>
-                    <a href="/Menu/login.html" class="btn btn-primary sign-in-btn">
+                    <a href="../Menu/login.html" class="btn btn-primary sign-in-btn">
                         <i class="fas fa-user"></i>
                         Sign In
                     </a>
@@ -56,7 +56,7 @@
 
         <section class="blog-content">
             <div class="container">
-                <div class="blog-layout">
+                <div class="blog-layout-single">
                     <article class="blog-post">
                         <div class="post-content">
                             <p class="post-intro">SQL injection remains one of the most critical security vulnerabilities in web applications. Despite being well-documented for over two decades, it continues to plague applications worldwide, making it essential for every developer to understand both its mechanics and prevention strategies.</p>
@@ -204,40 +204,63 @@ public boolean isValidUsername(String username) {
                         </div>
 
                         <div class="post-navigation">
-                            <a href="/Menu/blogs.html" class="btn btn-outline">← Back to All Posts</a>
+                            <a href="../Menu/blogs.html" class="btn btn-outline">← Back to All Posts</a>
                             <a href="secure-api-checklist.html" class="btn btn-primary">Next Post →</a>
                         </div>
                     </article>
 
-                    <aside class="blog-sidebar">
-                        <div class="sidebar-widget">
-                            <h3>Related Posts</h3>
-                            <ul class="related-posts">
-                                <li><a href="/Blogpost/secure-api-checklist.html">Building Secure APIs: A Developer's Checklist</a></li>
-                                <li><a href="/Blogpost/javascript-security.html">Modern JavaScript Security: Avoiding Common Pitfalls</a></li>
-                                <li><a href="/Blogpost/first-bug-bounty.html">My First Bug Bounty: Lessons Learned</a></li>
-                            </ul>
+                    <!-- Comments Section -->
+                    <section class="comments-section">
+                        <div class="comments-header">
+                            <h3>
+                                <i class="fas fa-comments"></i>
+                                Comments
+                            </h3>
+                            <span class="comments-count" id="commentsCount">0</span>
                         </div>
 
-                        <div class="sidebar-widget">
-                            <h3>Categories</h3>
-                            <ul class="category-list">
-                                <li><a href="/Menu/blogs.html">All Posts <span>(12)</span></a></li>
-                                <li><a href="/Menu/blogs.html">Security <span>(5)</span></a></li>
-                                <li><a href="/Menu/blogs.html">Development <span>(4)</span></a></li>
-                                <li><a href="/Menu/blogs.html">Bug Hunting <span>(3)</span></a></li>
-                            </ul>
+                        <!-- Comment Form -->
+                        <form class="comment-form" id="commentForm">
+                            <div class="comment-form-header">
+                                <div class="comment-avatar">?</div>
+                                <h4>Join the Discussion</h4>
+                            </div>
+                            <div class="comment-form-fields">
+                                <div class="form-row-comment">
+                                    <input type="text" class="comment-input" name="name" id="commentName" 
+                                           placeholder="Your name *" required>
+                                    <input type="email" class="comment-input" name="email" id="commentEmail" 
+                                           placeholder="Your email *" required>
+                                </div>
+                                <textarea class="comment-textarea" name="message" id="commentMessage" 
+                                          placeholder="Share your thoughts on SQL injection and security..." required></textarea>
+                            </div>
+                            <div class="comment-form-actions">
+                                <div class="comment-policy">
+                                    By commenting, you agree to our <a href="#">Community Guidelines</a>. 
+                                    Your email will not be published.
+                                </div>
+                                <button type="submit" class="comment-submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                    Post Comment
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Comments List -->
+                        <div class="comments-list" id="commentsList">
+                            <!-- Comments will be dynamically inserted here -->
                         </div>
 
-                        <div class="sidebar-widget">
-                            <h3>Newsletter</h3>
-                            <p>Get the latest security insights delivered to your inbox.</p>
-                            <form class="newsletter-form">
-                                <input type="email" placeholder="Your email address" required>
-                                <button type="submit" class="btn btn-primary">Subscribe</button>
-                            </form>
+                        <!-- Empty State -->
+                        <div class="comments-empty">
+                            <div class="comments-empty-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h4>Start the conversation</h4>
+                            <p>Share your experiences with SQL injection testing, prevention strategies, or ask questions about secure coding practices!</p>
                         </div>
-                    </aside>
+                    </section>
                 </div>
             </div>
         </section>
@@ -253,10 +276,10 @@ public boolean isValidUsername(String username) {
                 <div class="footer-links">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="/Menu/blogs.html">Blogs</a></li>
-                        <li><a href="/Menu/most-read.html">Most Read</a></li>
-                        <li><a href="/Menu/contact.html">Contact</a></li>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../Menu/blogs.html">Blogs</a></li>
+                        <li><a href="../Menu/most-read.html">Most Read</a></li>
+                        <li><a href="../Menu/contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">
@@ -274,6 +297,6 @@ public boolean isValidUsername(String username) {
         </div>
     </footer>
 
-    <script src="/JS/script.js"></script>
+    <script src="../JS/script.js"></script>
 </body>
 </html>
